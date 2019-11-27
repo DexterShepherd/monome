@@ -1,61 +1,55 @@
-var serialosc = require('serialosc');
-const accurateInterval = require('accurate-interval')
-const easymidi = require('easymidi')
+const Grid = require('./Grid')
+const Transport = require('./Transport')
 
-const output = new easymidi.Output('IAC Driver Bus 1')
+const { set } = require('./Grid')
+const { bus, subscribe } = require('./EventBus')
+const Track = require('./Inputs/Track')
 
-serialosc.start();
+class TrackManager {
+  constructor(row, rowCount) {
+    this.startRow = row
+    this.rowCount = rowCount
+    this.tracks = []
+    this.focusedTrack = null
 
-const createGrid = (set) => Array(16).fill().map((_, i) => Array(8).fill().map((_, j)=> set(i, j)))
-
-
-const grid = createGrid(_ => 0)
-let lastGrid = createGrid(_ => 0)
-
-let monome
-serialosc.on('device:add', function (device) {
-  monome = device
-  device.on('key', function ({x, y, s}) {
-    if ( s == 1 ) {
-      output.send("noteon", {
-        note: x + ((7 - y) * 5) + 12,
-        velocity: 127,
-        channel: 1,
-      })
-    } else {
-      output.send("noteoff", {
-        note: x + (( 7 - y ) * 5) + 12,
-        velocity: 127,
-        channel: 1,
-      })
-    }
-    updateGrid(createGrid((i, j) => (([0, 2, 4, 5, 7, 9, 11].includes(((7 - i) + j * 5 ) % 12))) ? 1 : 0))
-  })
-})
-
-const diffGrids = (a, b) => {
-  const changes = []
-  a.forEach((rowA, i) => {
-    rowA.forEach((valA, j) => {
-      const valB = b[i][j]
-      if ( valA !== valB ) {
-        changes.push({x: i, y: j, val: valB})
+    bus.on('key', ({ x, y, s }) => {
+      if (y >= this.startRow && y < this.startRow + this.rowCount) {
+        if (s == 1) {
+          this.setFocus(this.gridToIndex(x, y))
+        }
       }
     })
-  })
-  return changes
-}
+  }
 
+  addTrack(track) {
+    this.tracks.push(track)
+  }
 
-const updateGrid = (newGrid) => {
-  const diff = diffGrids(lastGrid, newGrid)
-  
-  diff.forEach(({ x, y, val }) => {
-    if (monome) {
-      monome.set({x, y, s: val})
+  setFocus(index) {
+    if (this.focusedTrack !== null) {
+      this.tracks[this.focusedTrack].blur()
+      const { x, y } = this.indexToGrid(this.focusedTrack)
+      set(x, y, 0)
     }
-  })
+    this.tracks[index].focus()
+    this.focusedTrack = index
+    const { x, y } = this.indexToGrid(index)
+    set(x, y, 1)
+  }
 
-  lastGrid = newGrid
+  indexToGrid(index) {
+    const x = index % 8
+    const y = Math.floor(index / 8) + this.startRow
+    return { x, y }
+  }
+  gridToIndex(x, y) {
+    return x + (y - this.startRow) * 8
+  }
 }
 
+const manager = new TrackManager(0, 2)
+Array(16)
+  .fill()
+  .map((_, i) => manager.addTrack(new Track(i)))
+
+manager.setFocus(0)

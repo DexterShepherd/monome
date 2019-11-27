@@ -11,8 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "accurate-interval": "^1.0.9",
+    "array-rotate": "^1.0.0",
     "easymidi": "^1.0.3",
+    "euclidean-rhythms": "^2.0.1",
     "nodemon": "^2.0.1",
-    "serialosc": "^0.0.8"
+    "prettier": "^1.19.1",
+    "rotate-array": "^1.1.0",
+    "serialosc": "^0.0.8",
+    "uuid": "^3.3.3"
   }
 }
