@@ -2,24 +2,34 @@ var serialosc = require('serialosc');
 const accurateInterval = require('accurate-interval')
 const easymidi = require('easymidi')
 
-console.log(easymidi.getOutputs())
-
 const output = new easymidi.Output('IAC Driver Bus 1')
 
 serialosc.start();
 
-const grid = (set) => Array(16).fill().map((_, i) => Array(8).fill().map((_, j)=> set(i, j)))
+const createGrid = (set) => Array(16).fill().map((_, i) => Array(8).fill().map((_, j)=> set(i, j)))
 
 
-const patterns = grid(_ => 0)
+const grid = createGrid(_ => 0)
+let lastGrid = createGrid(_ => 0)
 
 let monome
 serialosc.on('device:add', function (device) {
   monome = device
   device.on('key', function ({x, y, s}) {
     if ( s == 1 ) {
-      patterns[x][y] = Number(!patterns[x][y])
+      output.send("noteon", {
+        note: x + ((7 - y) * 5) + 12,
+        velocity: 127,
+        channel: 1,
+      })
+    } else {
+      output.send("noteoff", {
+        note: x + (( 7 - y ) * 5) + 12,
+        velocity: 127,
+        channel: 1,
+      })
     }
+    updateGrid(createGrid((i, j) => (([0, 2, 4, 5, 7, 9, 11].includes(((7 - i) + j * 5 ) % 12))) ? 1 : 0))
   })
 })
 
@@ -36,9 +46,6 @@ const diffGrids = (a, b) => {
   return changes
 }
 
-const initial = grid(() => 0)
-let lastGrid = initial
-
 
 const updateGrid = (newGrid) => {
   const diff = diffGrids(lastGrid, newGrid)
@@ -51,37 +58,4 @@ const updateGrid = (newGrid) => {
 
   lastGrid = newGrid
 }
-
-let pos = 0
-const update = () => {
-  pos = ( pos + 1 ) % 16
-  patterns.forEach((col, i) => {
-    if ( i == pos ) {
-      col.forEach((note, j) => {
-        if ( note == 1 ) {
-          console.log(i, j)
-          output.send('noteon', {
-            note: (7 - j) + 36,
-            velocity: 127,
-            channel: 0
-          })
-          setTimeout(() => {
-            output.send('noteoff', {
-              note: (7 - j)+ 36,
-              velocity: 127,
-              channel: 0
-            })
-          }, 50)
-        }
-      })
-    }
-  })
-  updateGrid(grid((x, y) => {
-      return (x == pos || patterns[x][y] == 1) ? 1 : 0
-  }))
-}
-
-
-
-const interval = setInterval(update, 100)
 
