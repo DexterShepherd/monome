@@ -14,6 +14,7 @@
     "array-rotate": "^1.0.0",
     "easymidi": "^1.0.3",
     "euclidean-rhythms": "^2.0.1",
+    "lodash": "^4.17.15",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
     "rotate-array": "^1.1.0",
