@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "accurate-interval": "^1.0.9",
+    "nodemon": "^2.0.1",
+    "rxjs": "^6.5.3",
+    "serialosc": "dextershepherd/node-serialosc",
+    "ws": "^7.2.0"
+  }
+}

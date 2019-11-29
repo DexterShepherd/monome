@@ -1,24 +1,38 @@
 {
-  "name": "monome",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "name": "monome-react",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "accurate-interval": "^1.0.9",
-    "array-rotate": "^1.0.0",
     "easymidi": "^1.0.3",
-    "euclidean-rhythms": "^2.0.1",
-    "lodash": "^4.17.15",
-    "nodemon": "^2.0.1",
+    "framer-motion": "^1.6.17",
     "prettier": "^1.19.1",
-    "rotate-array": "^1.1.0",
-    "serialosc": "^0.0.8",
-    "uuid": "^3.3.3"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.2.0",
+    "rxjs": "^6.5.3",
+    "styled-components": "^4.4.1",
+    "ws": "^7.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
