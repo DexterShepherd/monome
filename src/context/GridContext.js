@@ -4,7 +4,8 @@ import { WebSocketContext } from './WebSocketContext'
 const initialState = {
   cells: Array(128)
     .fill()
-    .map(_ => 0)
+    .map(_ => 0),
+  presses: []
 }
 
 const GridContext = createContext()
@@ -26,6 +27,16 @@ const GridProvider = ({ children }) => {
           ...state,
           cells: state.cells.map((v, i) => (i == action.index ? 0 : v))
         }
+      case 'down':
+        return {
+          ...state,
+          presses: [...state.presses, action.index]
+        }
+      case 'up':
+        return {
+          ...state,
+          presses: state.presses.filter(i => i !== action.index)
+        }
     }
   }
 
@@ -34,10 +45,10 @@ const GridProvider = ({ children }) => {
   useEffect(() => {
     onMessage((i, s) => {
       if (s == 1) {
-        dispatch({ type: 'on', index: i })
+        dispatch({ type: 'down', index: i })
       }
       if (s == 0) {
-        dispatch({ type: 'off', index: i })
+        dispatch({ type: 'up', index: i })
       }
     })
   }, [])

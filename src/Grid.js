@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import accurateInterval from 'accurate-interval'
-import { GridContext } from './GridContext'
+import { GridContext } from './context'
 
 const Cell = props => {
   return <CellContainer {...props}></CellContainer>
@@ -30,8 +30,8 @@ const Grid = ({ rows, cols }) => {
         <Cell
           key={i}
           value={cells[i]}
-          onMouseDown={() => dispatch({ type: 'on', index: i })}
-          onMouseUp={() => dispatch({ type: 'off', index: i })}
+          onMouseDown={() => dispatch({ type: 'down', index: i })}
+          onMouseUp={() => dispatch({ type: 'up', index: i })}
         />
       ))}
     </GridContainer>

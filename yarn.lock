@@ -1980,6 +1980,11 @@ array-includes@^3.0.3:
     define-properties "^1.1.2"
     es-abstract "^1.7.0"
 
+array-rotate@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/array-rotate/-/array-rotate-1.0.0.tgz#3a0fd1d7ddf0705cb28fe07c9159acbb4b056105"
+  integrity sha1-Og/R193wcFyyj+B8kVmsu0sFYQU=
+
 array-union@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-1.0.2.tgz#9a34410e4f4e3da23dea375be5be70f24778ec39"
@@ -4091,6 +4096,11 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+
+euclidean-rhythms@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/euclidean-rhythms/-/euclidean-rhythms-2.0.1.tgz#35e2855fdeff600a2259f14a8a8f188477a00828"
+  integrity sha512-rI6/DLfI4Rjqrtl2eMNnQ6hWamauBviwhjpIHhLxIM9wDi39YUyM4FGxVNo5+ibHHQ2JdJKvCNYzSGCCxDz8dA==
 
 eventemitter3@^3.0.0:
   version "3.1.2"
@@ -9002,6 +9012,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rotate-array@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/rotate-array/-/rotate-array-1.1.0.tgz#c7f8c3f07d0e435d8fc262dc985a4c8ea95f0a9f"
+  integrity sha1-x/jD8H0OQ12PwmLcmFpMjqlfCp8=
 
 rsvp@^4.8.4:
   version "4.8.5"

@@ -1,18 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Sequencer } from './Sequencer'
+import { Euclidean } from './Euclidean'
+import { TrackProvider } from './context'
 
 const Performer = ({ children }) => {
   return (
-    <PerformerContainer>
+    <Wrapper>
       <p>Performer</p>
-      <Sequencer startIndex={0} length={16} />
-    </PerformerContainer>
+      <TrackProvider>
+        <Euclidean startIndex={104} />
+        <Sequencer startIndex={112} length={16} />
+      </TrackProvider>
+    </Wrapper>
   )
 }
 
-const PerformerContainer = styled.div`
+const Wrapper = styled.div`
   padding: 16px;
 `
 
-export { Performer }
+const PerformerContainer = styled.div`
+  padding-left: 16px;
+`
+
+export { Performer, PerformerContainer }

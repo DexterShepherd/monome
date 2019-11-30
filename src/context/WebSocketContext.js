@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react'
-import { Observable } from 'rxjs'
 
 const initialState = {
   ws: null
@@ -36,6 +35,11 @@ const WebSocketProvider = ({ children }) => {
     }
   }, [ws, onMessageQ])
 
+  useEffect(() => {
+    if (ws && ready) {
+      ws.send(JSON.stringify({ type: 'clear' }))
+    }
+  }, [ws, ready])
   useEffect(() => {
     if (q.length) {
       if (ws && ready) {

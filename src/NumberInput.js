@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { GridContext } from './GridContext'
+import { GridContext } from './context'
 
 const NumberInput = ({ startIndex, onChange }) => {
   const [value, setValue] = useState(1)

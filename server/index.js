@@ -31,8 +31,11 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     const m = JSON.parse(message)
     if (deviceRef) {
+      if (m.type == 'clear') {
+        return deviceRef.all(0)
+      }
       const { x, y } = uvFromIndex(m.index)
-      deviceRef.levelSet(x, y, m.s * 5)
+      return deviceRef.levelSet(x, y, m.s * 5)
     }
   })
 })
