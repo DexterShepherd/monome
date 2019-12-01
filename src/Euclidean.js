@@ -25,7 +25,6 @@ const Euclidean = ({ startIndex }) => {
   }, [pattern])
 
   useEffect(() => {
-    console.log('p', pulses, offset)
     setRootPattern(rotate(er.getPattern(pulses, 16), offset * -1))
     setMutedSteps([])
   }, [pulses, offset])

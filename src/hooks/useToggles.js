@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { usePrevious } from './usePrevious'
+
 
 const useToggles = pattern => {
   const [toggles, setToggles] = useState(
@@ -7,11 +9,16 @@ const useToggles = pattern => {
       .map(_ => 0)
   )
 
+  const last = usePrevious(pattern)
+
   useEffect(() => {
     if (pattern.includes(1)) {
       setToggles(
         pattern.map((v, i) => {
-          return v ? Number(!toggles[i]) : toggles[i]
+          if (v !== last[i]) {
+            return v ? Number(!toggles[i]) : toggles[i]
+          }
+          return toggles[i]
         })
       )
     }

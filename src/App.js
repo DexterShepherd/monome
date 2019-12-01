@@ -21,7 +21,7 @@ const GridWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 16px;
+  padding: 64px;
 `
 
 const AppContainer = styled.div`
