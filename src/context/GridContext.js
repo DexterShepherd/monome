@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect, useReducer, useContext } from 'react'
-import { WebSocketContext } from './WebSocketContext'
+import React, { createContext, useState, useEffect, useReducer } from 'react'
+import { useWS } from '../hooks'
 
 const initialState = {
   cells: Array(128)
@@ -11,7 +11,7 @@ const initialState = {
 const GridContext = createContext()
 
 const GridProvider = ({ children }) => {
-  const { set, onMessage } = useContext(WebSocketContext)
+  const { set, onMessage } = useWS()
 
   const reducer = (state, action) => {
     switch (action.type) {

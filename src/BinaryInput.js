@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useWrappedTick, useGrid, useToggles, usePresses } from './hooks'
+import { useWrappedTick, useRender, useToggles, usePresses } from './hooks'
 import { PerformerContainer } from './Performer'
 
 const BinaryInput = ({ length, startIndex, name, onChange }) => {
   const [value, setValue] = useState(0)
   const [bits] = useToggles(usePresses(startIndex, length))
 
-  useGrid(bits, startIndex)
+  useRender(bits, startIndex)
 
   useEffect(() => {
     setValue(

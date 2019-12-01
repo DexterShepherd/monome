@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import accurateInterval from 'accurate-interval'
-import { GridContext } from './context'
+import { useGrid } from './hooks'
 
 const Cell = props => {
   return <CellContainer {...props}></CellContainer>
@@ -17,7 +17,7 @@ const CellContainer = styled.button`
 `
 
 const Grid = ({ rows, cols }) => {
-  const [state, dispatch] = useContext(GridContext)
+  const [state, dispatch] = useGrid()
   const { cells } = state
 
   const uvToIndex = (x, y) => {

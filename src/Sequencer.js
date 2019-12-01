@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
-import { GridContext, TrackContext } from './context'
+import React, { useEffect, useState, useRef } from 'react'
 import timer from 'accurate-interval'
 import { BinaryInput } from './BinaryInput'
 import { PerformerContainer } from './Performer'
 
-import { useWrappedTick, useGrid, useToggles, usePresses } from './hooks'
+import { useTrack, useGrid, useWrappedTick, useRender, useToggles, usePresses } from './hooks'
 
 const Sequencer = ({ startIndex, length }) => {
-  const [state, dispatch] = useContext(GridContext)
-  const { addPattern, pattern } = useContext(TrackContext)
+  const [state, dispatch] = useGrid()
+  const { addPattern, pattern } = useTrack()
 
   const [seqPattern] = useToggles(usePresses(startIndex, length))
 
-  useGrid(pattern, startIndex)
+  useRender(pattern, startIndex)
 
   useEffect(() => {
     addPattern(seqPattern, 'seq')

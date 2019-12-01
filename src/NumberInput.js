@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { GridContext } from './context'
+import React, { useEffect, useState } from 'react'
+import { useGrid } from './hooks'
 
 const NumberInput = ({ startIndex, onChange }) => {
   const [value, setValue] = useState(1)
-  const [state, dispatch] = useContext(GridContext)
+  const [state, dispatch] = useGrid()
   const { cells } = state
 
   useEffect(() => {

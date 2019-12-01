@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { usePresses } from './usePresses'
 
 const priority = Array(128)

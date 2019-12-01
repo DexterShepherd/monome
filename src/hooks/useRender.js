@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react'
-import { GridContext } from '../context'
+import { useState, useEffect} from 'react'
+import { useGrid } from './useContexts'
 
-const useGrid = (pattern, start) => {
+const useRender = (pattern, start) => {
   const [lastPattern, setLastPattern] = useState([])
-  const [state, dispatch] = useContext(GridContext)
+  const [state, dispatch] = useGrid()
 
   useEffect(() => {
     pattern.forEach((v, i) => {
@@ -17,4 +17,4 @@ const useGrid = (pattern, start) => {
   return pattern
 }
 
-export { useGrid }
+export { useRender }

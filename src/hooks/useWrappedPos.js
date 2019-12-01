@@ -1,8 +1,7 @@
-import { useContext } from 'react'
-import { TransportContext } from '../context'
+import { useTransport } from './useContexts'
 
 const useWrappedPos = length => {
-  const { position } = useContext(TransportContext)
+  const { position } = useTransport() 
 
   return position % length
 }

@@ -1,8 +1,8 @@
-import { useContext, useState, useEffect } from 'react'
-import { GridContext } from '../context'
+import {useState, useEffect } from 'react'
+import { useGrid } from './useContexts'
 
 const usePresses = (start, length) => {
-  const [state, dispatch] = useContext(GridContext)
+  const [state, dispatch] = useGrid()
   const { cells, presses } = state
 
   const [pressArray, setPressArray] = useState(
