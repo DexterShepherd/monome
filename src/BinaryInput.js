@@ -4,7 +4,7 @@ import { PerformerContainer } from './Performer'
 
 const BinaryInput = ({ length, startIndex, name, onChange }) => {
   const [value, setValue] = useState(0)
-  const bits = useToggles(usePresses(startIndex, length))
+  const [bits] = useToggles(usePresses(startIndex, length))
 
   useGrid(bits, startIndex)
 

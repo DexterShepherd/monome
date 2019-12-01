@@ -4,6 +4,7 @@ import { GridContext } from '../context'
 const usePresses = (start, length) => {
   const [state, dispatch] = useContext(GridContext)
   const { cells, presses } = state
+
   const [pressArray, setPressArray] = useState(
     Array(length)
       .fill()

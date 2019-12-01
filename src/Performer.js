@@ -9,7 +9,7 @@ const Performer = ({ children }) => {
     <Wrapper>
       <p>Performer</p>
       <TrackProvider>
-        <Euclidean startIndex={104} />
+        <Euclidean startIndex={88} />
         <Sequencer startIndex={112} length={16} />
       </TrackProvider>
     </Wrapper>

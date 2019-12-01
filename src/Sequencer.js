@@ -10,7 +10,7 @@ const Sequencer = ({ startIndex, length }) => {
   const [state, dispatch] = useContext(GridContext)
   const { addPattern, pattern } = useContext(TrackContext)
 
-  const seqPattern = useToggles(usePresses(startIndex, length))
+  const [seqPattern] = useToggles(usePresses(startIndex, length))
 
   useGrid(pattern, startIndex)
 

@@ -17,7 +17,7 @@ const useToggles = pattern => {
     }
   }, [pattern])
 
-  return toggles
+  return [toggles, setToggles]
 }
 
 export { useToggles }
