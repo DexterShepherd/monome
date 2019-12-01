@@ -1,21 +1,34 @@
-import React, { createContext, useState, useEffect, useRef } from 'react'
+import React, { createContext, useState, useEffect, useRef, useCallback, useReducer } from 'react'
 import timer from 'accurate-interval'
+import Tone from 'tone'
 
 const TransportContext = createContext()
 
 const TransportProvider = ({ children }) => {
-  const [position, setPosition] = useState(0)
+  // const [position, setPosition] = useState(0)
   const [speed, setSpeed] = useState(100)
   const intervalRef = useRef()
+  const [{ position }, dispatch] = useReducer(
+    (state, action) => {
+      switch (action.type) {
+        case 'inc':
+          return { position: state.position + 1 }
+      }
+    },
+    {
+      position: 0
+    }
+  )
 
-  const step = () => {
-    setPosition(position + 1)
-  }
+  const step = useCallback(() => {
+    dispatch({ type: 'inc' })
+  }, [dispatch])
 
   useEffect(() => {
-    intervalRef.current = timer(step, speed)
-    return () => intervalRef.current && intervalRef.current.clear()
-  }, [position, speed])
+    Tone.Transport.bpm.value = 124
+    Tone.Transport.start()
+    Tone.Transport.scheduleRepeat(step, '16n')
+  }, [])
 
   const state = {
     position,

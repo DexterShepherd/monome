@@ -15,6 +15,7 @@
     "rotate-array": "^1.1.0",
     "rxjs": "^6.5.3",
     "styled-components": "^4.4.1",
+    "tone": "^13.8.25",
     "webmidi": "^2.5.1",
     "ws": "^7.2.0"
   },
