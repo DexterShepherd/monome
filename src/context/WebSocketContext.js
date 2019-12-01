@@ -35,10 +35,14 @@ const WebSocketProvider = ({ children }) => {
     }
   }, [ws, onMessageQ])
 
-  useEffect(() => {
+  const clear = () => {
     if (ws && ready) {
       ws.send(JSON.stringify({ type: 'clear' }))
     }
+  }
+
+  useEffect(() => {
+    clear()
   }, [ws, ready])
   useEffect(() => {
     if (q.length) {
@@ -68,7 +72,8 @@ const WebSocketProvider = ({ children }) => {
     ws,
     set,
     ready,
-    onMessage
+    onMessage,
+    clear
   }
 
   return <WebSocketContext.Provider value={state}>{children}</WebSocketContext.Provider>

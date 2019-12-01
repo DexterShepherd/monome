@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useGrid } from './hooks'
+import { usePresses, useRadio, useRender } from './hooks'
 
-const NumberInput = ({ startIndex, onChange }) => {
-  const [value, setValue] = useState(1)
-  const [state, dispatch] = useGrid()
-  const { cells } = state
+const NumberInput = ({ startIndex, length, onChange, name }) => {
+  const [buffer, value] = useRadio(usePresses(startIndex, length))
 
-  useEffect(() => {
-    dispatch({ type: 'on', index: startIndex + value })
-  }, [value, startIndex])
+  useRender(buffer, startIndex)
 
   useEffect(() => {
     if (onChange) {
@@ -16,7 +12,11 @@ const NumberInput = ({ startIndex, onChange }) => {
     }
   }, [value])
 
-  return <p>Number {value}</p>
+  return (
+    <p>
+      {name || 'number'} {value}
+    </p>
+  )
 }
 
 export { NumberInput }

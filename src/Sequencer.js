@@ -3,11 +3,12 @@ import timer from 'accurate-interval'
 import { BinaryInput } from './BinaryInput'
 import { PerformerContainer } from './Performer'
 
-import { useTrack, useGrid, useWrappedTick, useRender, useToggles, usePresses } from './hooks'
+import { useTrack, useGrid, useWrappedTick, useRender, useToggles, usePresses, useFocused } from './hooks'
 
 const Sequencer = ({ startIndex, length }) => {
   const [state, dispatch] = useGrid()
   const { addPattern, pattern } = useTrack()
+  const focused = useFocused(true)
 
   const [seqPattern] = useToggles(usePresses(startIndex, length))
 
@@ -18,10 +19,12 @@ const Sequencer = ({ startIndex, length }) => {
   }, [seqPattern])
 
   const position = useWrappedTick(position => {
-    dispatch({ type: 'on', index: startIndex + position })
-    const lastPos = (position + length - 1) % length
-    if (!pattern[lastPos]) {
-      dispatch({ type: 'off', index: startIndex + lastPos })
+    if (focused) {
+      dispatch({ type: 'on', index: startIndex + position })
+      const lastPos = (position + length - 1) % length
+      if (!pattern[lastPos]) {
+        dispatch({ type: 'off', index: startIndex + lastPos })
+      }
     }
   }, length)
 

@@ -10,7 +10,7 @@ const Cell = props => {
 const CellContainer = styled.button`
   width: 24px;
   height: 24px;
-  border: 1px solid white;
+  border: 1px solid #505050;
   margin: 4px;
   border-radius: 4px;
   background: ${({ value }) => `rgba(255, 255, 255, ${value})`};

@@ -1,9 +1,11 @@
-import {useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useGrid } from './useContexts'
+import { useFocused } from '.'
 
 const usePresses = (start, length) => {
   const [state, dispatch] = useGrid()
   const { cells, presses } = state
+  const focused = useFocused()
 
   const [pressArray, setPressArray] = useState(
     Array(length)
@@ -18,8 +20,10 @@ const usePresses = (start, length) => {
   )
 
   useEffect(() => {
-    setPressArray(indexes.map(index => Number(presses.includes(index))))
-  }, [presses])
+    if (focused) {
+      setPressArray(indexes.map(index => Number(presses.includes(index))))
+    }
+  }, [presses, focused])
 
   return pressArray
 }

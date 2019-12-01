@@ -11,10 +11,13 @@ const initialState = {
 const GridContext = createContext()
 
 const GridProvider = ({ children }) => {
-  const { set, onMessage } = useWS()
+  const { set, onMessage, clear } = useWS()
 
   const reducer = (state, action) => {
     switch (action.type) {
+      case 'clear':
+        clear()
+        return initialState
       case 'on':
         set({ index: action.index, s: 1 })
         return {

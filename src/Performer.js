@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Sequencer } from './Sequencer'
 import { Euclidean } from './Euclidean'
 import { TrackProvider } from './context'
 
 const Performer = ({ children }) => {
+  const [tracks, setTracks] = useState(
+    Array(8)
+      .fill()
+      .map((_, i) => i)
+  )
   return (
     <Wrapper>
       <p>Performer</p>
-      <TrackProvider>
-        <Euclidean startIndex={88} />
-        <Sequencer startIndex={112} length={16} />
-      </TrackProvider>
+
+      {tracks.map(i => (
+        <TrackProvider key={i} index={i}>
+          <Euclidean startIndex={88} />
+          <Sequencer startIndex={112} length={16} />
+        </TrackProvider>
+      ))}
     </Wrapper>
   )
 }

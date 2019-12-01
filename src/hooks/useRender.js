@@ -1,18 +1,22 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { useGrid } from './useContexts'
+import { useFocused } from '.'
 
 const useRender = (pattern, start) => {
   const [lastPattern, setLastPattern] = useState([])
   const [state, dispatch] = useGrid()
+  const focused = useFocused()
 
   useEffect(() => {
-    pattern.forEach((v, i) => {
-      if (v !== lastPattern[i]) {
-        dispatch({ index: start + i, type: v ? 'on' : 'off' })
-      }
-    })
+    if (focused) {
+      pattern.forEach((v, i) => {
+        if (v !== lastPattern[i]) {
+          dispatch({ index: start + i, type: v ? 'on' : 'off' })
+        }
+      })
+    }
     setLastPattern(pattern)
-  }, [pattern])
+  }, [pattern, focused])
 
   return pattern
 }
