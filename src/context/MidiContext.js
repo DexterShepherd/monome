@@ -16,6 +16,8 @@ const MidiProvider = ({ children }) => {
     })
   }, [])
 
+  console.log('!')
+
   useEffect(() => {
     if (midiReady) {
       setOutput(webmidi.getOutputByName('IAC Driver Bus 1'))
